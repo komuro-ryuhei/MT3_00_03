@@ -17,11 +17,12 @@ void VectorScreenPrintf(int x, int y, const Vector3& vector, const char* label) 
 	Novice::ScreenPrintf(x + kColumnWidth * 3, y, "%s", label);
 }
 
-void MatrixScreenPrintf(int x, int y, Matrix4x4 matrix) {
+void MatrixScreenPrintf(int x, int y, Matrix4x4 matrix,const char* label) {
 	for (int row = 0; row < 4; row++) {
 		for (int column = 0; column < 4; column++) {
 			Novice::ScreenPrintf(
-				x + column * kColumnWidth, y + row * kRowHeight, "%.02f", matrix.m[row][column]);
+				x + column * kColumnWidth + 20, y + row * kRowHeight, "%.02f", matrix.m[row][column]);
+			Novice::ScreenPrintf(x, y - 20, "%s", label);
 		}
 	}
 }
@@ -142,8 +143,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		///
 
 		VectorScreenPrintf(0, 0, transformed,"transformed");
-		MatrixScreenPrintf(0, kRowHeight * 2, transformMatrix);
-		MatrixScreenPrintf(0, kRowHeight * 7, scaleMatrix);
+		MatrixScreenPrintf(0, kRowHeight * 2, translateMatrix,"translateMatrix");
+		MatrixScreenPrintf(0, kRowHeight * 7, scaleMatrix,"scaleMatrix");
 
 		///
 		/// ↑描画処理ここまで
